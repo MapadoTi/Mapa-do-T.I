@@ -1,24 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, Button, View } from 'react-native';
+import * as React from 'react';
+import { Button, View, Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-export default function App() {
+function HomeScreen({ navigation }){
   return (
-    <View>
-      <StatusBar style="auto" />
-      
-
-      <StatusBar style="auto" />
-      <button onclick="myFunction()">ENTRAR</button>
-
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Home Screen</Text>
+      <Button
+        title="Go to Details"
+        onPress={() => navigation.navigate('Details')}
+      />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  fundo: {
-    flex: 1,
-    backgroundColor: '#231F20',
-    width: 600,
-    heigth: 200
-  },
-});
