@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Image, ImageBackground,StyleSheet,Dimensi
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
-import { TextInput } from 'react-native-paper';
+import { TextInput, DefaultTheme, Provider as PaperProvider,TargetComponent, List   } from 'react-native-paper';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -45,6 +45,7 @@ function Login({ navigation }) {
     navigation.navigate('Home');
   };
 
+
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Preencha o campo:</Text>
@@ -52,14 +53,29 @@ function Login({ navigation }) {
         label="Email"
         value={email}
         onChangeText={(text) => setEmail(text)}
-        style={{ width: 200, marginVertical: 5 }}
+        style={styles.input}
+        theme={{
+          ...DefaultTheme,
+          colors: {
+            ...DefaultTheme.colors,
+            primary: '#00508F', // Define a cor do texto do rótulo e da linha de sublinhado
+            
+          },
+        }}
       />
       <TextInput
         label="Senha"
         value={senha}
         onChangeText={(text) => setSenha(text)}
         secureTextEntry
-        style={{ width: 200, marginVertical: 5 }}
+        style={styles.input}
+        theme={{
+          ...DefaultTheme,
+          colors: {
+            ...DefaultTheme.colors,
+            primary: '#00508F', // Define a cor do texto do rótulo e da linha de sublinhado
+          },
+        }}
       />
       <TouchableOpacity
         style={{
@@ -118,6 +134,14 @@ function StackNavigator() {
   );
 }
 
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: 'blue', // Define a cor primária como azul
+  },
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -138,21 +162,29 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     backgroundColor: '#000000a0',
   },
+  input: {
+    width: 300,
+    marginVertical: 5,
+    color: 'black', // Define a cor do texto como azul
+    backgroundColor: 'white', // Define a cor de fundo como azul claro
+  },
 });
+
 
 const Drawer = createDrawerNavigator();
 
 function DrawerNavigator() {
   return (
+    <PaperProvider theme={theme}>
     <NavigationContainer>
       <Drawer.Navigator>
         <Drawer.Screen name="Home" component={Home} />
         <Drawer.Screen name="Descarte" component={Descarte}/>
         <Drawer.Screen name="Doação" component={Doação}/>
         <Drawer.Screen name="Logout" component={StackNavigator} options={{ headerShown: false }} />
-
       </Drawer.Navigator>
     </NavigationContainer>
+    </PaperProvider>
   );
 }
 
