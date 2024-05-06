@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -13,12 +13,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { LinearGradient } from 'expo-linear-gradient';
 import { NavigationContainer } from '@react-navigation/native';
 import {
-  TextInput,
-  DefaultTheme,
-  Provider as PaperProvider,
-  TargetComponent,
-  List,
-} from 'react-native-paper';
+  TextInput,DefaultTheme,Provider as PaperProvider,TargetComponent,List,Checkbox } from 'react-native-paper';
+
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -150,10 +146,97 @@ function Login({ navigation }) {
 }
 
 function Home() {
+  const [checkedItems, setCheckedItems] = useState([]);
+  const handleCheckboxPress = (itemTitle) => {
+    if (checkedItems.includes(itemTitle)) {
+      setCheckedItems(checkedItems.filter((title) => title !== itemTitle));
+    } else {
+      setCheckedItems([...checkedItems, itemTitle]);
+    }
+  };
+
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Olá Usuário TESTE</Text>
-    </View>
+      <List.Section title="BETA">
+        <List.Accordion
+          title="LAB 01"
+          left={(props) => <List.Icon {...props} icon="folder" />}
+        >
+          {[1, 2, 3, 4].map((i) => (
+            <List.Item
+              key={`PC 0${i}`}
+              title={`PC 0${i}`}
+              right={() => (
+                <Checkbox.Item
+                  status={checkedItems.includes(`PC 0${i}`) ? 'checked' : 'unchecked'}
+                  onPress={() => handleCheckboxPress(`PC 0${i}`)}
+                  color="#007AFF"
+                  checkedIcon="check"
+                />
+              )}
+            />
+          ))}
+        </List.Accordion>
+
+        <List.Accordion
+          title="LAB 02"
+          left={(props) => <List.Icon {...props} icon="folder" />}
+        >
+          {[1, 2, 3, 4].map((i) => (
+            <List.Item
+              key={`PC 0${i}`}
+              title={`PC 0${i}`}
+              right={() => (
+                <Checkbox.Item
+                  status={checkedItems.includes(`PC 0${i}`) ? 'checked' : 'unchecked'}
+                  onPress={() => handleCheckboxPress(`PC 0${i}`)}
+                  color="#007AFF"
+                  checkedIcon="check"
+                />
+              )}
+            />
+          ))}
+        </List.Accordion>
+
+        <List.Accordion
+          title="SECRETARIA"
+          left={(props) => <List.Icon {...props} icon="folder" />}
+        >
+          {[1, 2, 3, 4].map((i) => (
+            <List.Item
+              key={`PC 0${i}`}
+              title={`PC 0${i}`}
+              right={() => (
+                <Checkbox.Item
+                  status={checkedItems.includes(`PC 0${i}`) ? 'checked' : 'unchecked'}
+                  onPress={() => handleCheckboxPress(`PC 0${i}`)}
+                  color="#007AFF"
+                  checkedIcon="check"
+                />
+              )}
+            />
+          ))}
+        </List.Accordion>
+
+         <List.Accordion
+          title="DIREÇÃO"
+          left={(props) => <List.Icon {...props} icon="folder" />}
+        >
+          {[1, 2, 3].map((i) => (
+            <List.Item
+              key={`PC 0${i}`}
+              title={`PC 0${i}`}
+              right={() => (
+                <Checkbox.Item
+                  status={checkedItems.includes(`PC 0${i}`) ? 'checked' : 'unchecked'}
+                  onPress={() => handleCheckboxPress(`PC 0${i}`)}
+                  color="#007AFF"
+                  checkedIcon="check"
+                />
+              )}
+            />
+          ))}
+        </List.Accordion>
+      </List.Section>
   );
 }
 
@@ -298,6 +381,7 @@ const styles = StyleSheet.create({
 });
 
 const Drawer = createDrawerNavigator();
+
 
 function DrawerNavigator() {
   return (
